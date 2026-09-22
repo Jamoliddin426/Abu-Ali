@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="uz" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abu Ali ibn Sino — Buyuk Alloma Interaktiv Taqdimot</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts: Playfair Display, Plus Jakarta Sans, Scheherazade New -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            100: '#FFF9E5',
+                            300: '#FCE28B',
+                            400: '#F9D048',
+                            500: '#D4AF37',
+                            600: '#AA820A',
+                            700: '#805E00',
+                        },
+                        midnight: {
+                            900: '#060A17',
+                            800: '#0B132B',
+                            700: '#1C2541',
+                            600: '#3A506B'
+                        },
+                        emeraldRoyal: {
+                            800: '#064E3B',
+                            900: '#022C22'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        arabic: ['"Scheherazade New"', 'serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 3s infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'phone-shake': 'phoneShake 0.6s ease infinite alternate'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(212,175,55,0.4))' },
+                            '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 25px rgba(212,175,55,0.8))' }
+                        },
+                        phoneShake: {
+                            '0%': { transform: 'rotate(-2deg)' },
+                            '100%': { transform: 'rotate(2deg)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles & Glassmorphism */
+        body {
+            background-color: #060A17;
+            color: #f8fafc;
+            overflow: hidden;
+            user-select: none;
+        }
+        .glass-panel {
+            background: rgba(11, 19, 43, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .glass-card {
+            background: rgba(28, 37, 65, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF9E5 0%, #F9D048 50%, #AA820A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-glow {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* ---------------------------------------------------- */
+        /* TELEFON MOCKUP VA HOVER ANIMATSIYASI */
+        /* ---------------------------------------------------- */
+        .phone-mockup {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+            cursor: pointer;
+        }
+        .phone-mockup:hover {
+            transform: translateY(-12px) scale(1.05) rotate(-1deg);
+            box-shadow: 0 25px 40px -10px rgba(212, 175, 55, 0.35), 0 0 25px rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.8);
+        }
+        .phone-mockup:hover .phone-screen-img {
+            transform: scale(1.08);
+            transition: transform 0.5s ease;
+        }
+        .phone-screen-img {
+            transition: transform 0.5s ease;
+        }
+        .phone-mockup:hover .phone-notch {
+            background-color: #D4AF37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(6, 10, 23, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.4);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 175, 55, 0.8);
+        }
+        /* Canvas background overlay */
+        #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .slide-transition {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        /* Sepia Theme */
+        body.theme-sepia {
+            background-color: #1a1410;
+            color: #f3e5ab;
+        }
+        body.theme-sepia .glass-panel {
+            background: rgba(35, 26, 19, 0.85);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        body.theme-sepia .glass-card {
+            background: rgba(48, 36, 26, 0.6);
+        }
+        /* Print Styles for PDF export */
+        @media print {
+            body { overflow: visible !important; background: white !important; color: black !important; }
+            #particleCanvas, #controlsNav, #topBar, #notesDrawer, #pickerModal { display: none !important; }
+            .slide-container { display: block !important; position: relative !important; page-break-after: always; height: auto !important; width: 100% !important; opacity: 1 !important; transform: none !important; }
+            .glass-panel, .glass-card { background: white !important; color: black !important; border: 1px solid #ccc !important; box-shadow: none !important; }
+            .gold-gradient-text { -webkit-text-fill-color: #805E00 !important; }
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans relative antialiased selection:bg-gold-500 selection:text-midnight-900">
+
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Background Ambient Glow Orbs -->
+    <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-gold-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
+
+    <header id="topBar" class="relative z-20 flex items-center justify-between px-6 py-3 border-b border-gold-500/20 glass-panel">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-gold-600 to-gold-400 p-0.5 flex items-center justify-center shadow-lg shadow-gold-500/20">
+                <div class="w-full h-full bg-midnight-900 rounded-[10px] flex items-center justify-center">
+                    <i data-lucide="book-open-check" class="w-5 h-5 text-gold-400"></i>
+                </div>
+            </div>
+            <div>
+                <h1 class="font-serif font-bold text-lg leading-tight text-white flex items-center gap-2">
+                    Abu Ali ibn Sino
+                    <span class="text-xs font-sans font-normal px-2 py-0.5 rounded-full bg-gold-500/20 text-gold-300 border border-gold-500/30">Avicenna</span>
+                </h1>
+                <p class="text-xs text-slate-400 font-sans">Buyuk Qomusiy Olim va Tabobat Sultonining Hayoti hamda Merosi</p>
+            </div>
+        </div>
+
+        <!-- Quick Controls -->
+        <div class="flex items-center space-x-2 md:space-x-3">
+            <button id="searchBtn" onclick="toggleSearchModal()" class="p-2 rounded-lg bg-slate-800/60 hover:bg-gold-500/20 border border-slate-700 hover:border-gold-500/50 text-slate-300 hover:text-gold-300 transition" title="Izlash (Ctrl+K)">
+                <i data-lucide="search" class="w-4 h-4"></i>
+            </button>
+            <button id="audioToggleBtn" onclick="toggleAmbientAudio()" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/60 hover:bg-gold-500/20 border border-slate-700 hover:border-gold-500/50 text-slate-300 hover:text-gold-300 transition text-xs font-medium">
+                <i data-lucide="volume-x" id="audioIcon" class="w-4 h-4"></i>
+                <span class="hidden sm:inline" id="audioText">Sharqona Ohang: O'chiq</span>
+            </button>
+            <button onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-800/60 hover:bg-gold-500/20 border border-slate-700 hover:border-gold-500/50 text-slate-300 hover:text-gold-300 transition" title="Mavzuni o'zgartirish">
+                <i data-lucide="palette" class="w-4 h-4"></i>
+            </button>
+            <button onclick="togglePickerModal()" class="p-2 rounded-lg bg-slate-800/60 hover:bg-gold-500/20 border border-slate-700 hover:border-gold-500/50 text-slate-300 hover:text-gold-300 transition" title="Slaydlar galereyasi">
+                <i data-lucide="grid" class="w-4 h-4"></i>
+            </button>
+            <button onclick="toggleNotesDrawer()" class="p-2 rounded-lg bg-slate-800/60 hover:bg-gold-500/20 border border-slate-700 hover:border-gold-500/50 text-slate-300 hover:text-gold-300 transition" title="Taqdimotchi eslatmalari">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+            </button>
+            <button onclick="toggleFullscreen()" class="p-2 rounded-lg bg-slate-800/60 hover:bg-gold-500/20 border border-slate-700 hover:border-gold-500/50 text-slate-300 hover:text-gold-300 transition" title="To'liq ekran (F)">
+                <i data-lucide="maximize" class="w-4 h-4"></i>
+            </button>
+            <button onclick="window.print()" class="p-2 rounded-lg bg-gold-500 text-midnight-900 hover:bg-gold-400 font-semibold transition shadow-md shadow-gold-500/20" title="PDF formatida chop etish / saqlash">
+                <i data-lucide="printer" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-1 flex items-center justify-center p-4 md:p-8 overflow-hidden">
+        <div id="slideViewport" class="w-full max-w-6xl h-full max-h-[750px] relative flex items-center justify-center">
+            
+            <!-- SLIDE 1: Title & Hero -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-12 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-100 scale-100 z-10" data-slide="1">
+                <div class="flex justify-between items-start">
+                    <span class="px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 font-mono text-xs uppercase tracking-widest flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Kirish & Ummon Manzarasi
+                    </span>
+                    <span class="font-serif text-3xl text-gold-500/40">01</span>
+                </div>
+                <div class="my-auto text-center py-6">
+                    <div class="inline-block relative mb-4">
+                        <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-tr from-gold-500 to-amber-200 p-1 shadow-xl shadow-gold-500/30 animate-pulse-glow">
+                            <div class="w-full h-full rounded-full bg-midnight-900 flex items-center justify-center">
+                                <i data-lucide="crown" class="w-12 h-12 text-gold-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="font-arabic text-3xl md:text-4xl text-gold-300 mb-2">أبو علي الحسين بن عبد الله بن سينا</p>
+                    <h1 class="font-serif text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                        ABU ALI IBN SINO
+                    </h1>
+                    <p class="text-xl md:text-2xl font-light text-slate-300 max-w-2xl mx-auto font-serif italic">
+                        "Sharq Falsafasi va Jahon Tabobatining Yoritgich Yulduzi"
+                    </p>
+                    <p class="mt-4 text-sm text-slate-400 max-w-lg mx-auto">
+                        Insoniyat tamadduniga ulkan hissa qo'shgan buyuk qomusiy olim, tabib, faylasuf hamda mantiqshunosning hayot yo'li va mislsiz merosiga bag'ishlangan eksklyuziv taqdimot.
+                    </p>
+                </div>
+                <div class="flex flex-wrap justify-between items-center pt-6 border-t border-slate-800 text-xs text-slate-400 gap-4">
+                    <div class="flex items-center space-x-4">
+                        <span><i data-lucide="map-pin" class="inline w-3.5 h-3.5 text-gold-400 mr-1"></i> Afshona / Buxoro</span>
+                        <span><i data-lucide="calendar" class="inline w-3.5 h-3.5 text-gold-400 mr-1"></i> 980 - 1037 yillar</span>
+                    </div>
+                    <div class="text-gold-400 font-medium">Boshlash uchun Next (→) yoki Joy (Space) tugmasini bosing</div>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: Portrait & Biography with Phone Mockup (INTERAKTIV ANIMATSIYALI) -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="2">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="smartphone" class="w-3.5 h-3.5"></i> Siymo va Mobil Tasvir
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">02</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center my-auto">
+                    
+                    <!-- Phone Frame Mockup (Animatsiya qo'shilgan qism) -->
+                    <div class="md:col-span-5 flex justify-center">
+                        <div class="phone-mockup relative w-60 h-[360px] bg-slate-900 rounded-[40px] p-3 border-4 border-slate-700 shadow-2xl shadow-gold-500/20 flex flex-col items-center">
+                            <!-- Phone Notch / Dynamic Island -->
+                            <div class="phone-notch w-24 h-4 bg-slate-800 rounded-full mb-2 z-10 transition-colors"></div>
+                            <!-- Phone Screen -->
+                            <div class="relative w-full h-full rounded-[28px] overflow-hidden bg-midnight-900 border border-gold-500/30 flex flex-col justify-between group">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpjNtNmQ4BhmFYkEfv9hihJZhqrADXGnUXWbNUEDdmEEfD6kl2JDBkPgnW&s=10" alt="Ibn Sino" class="phone-screen-img w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-midnight-900 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-3 left-2 right-2 text-center bg-midnight-900/80 backdrop-blur-md p-2 rounded-xl border border-gold-500/30 transition-transform duration-300 group-hover:translate-y-[-2px]">
+                                    <p class="font-serif text-[11px] text-gold-300 font-bold">Abu Ali ibn Sino</p>
+                                    <p class="text-[9px] text-slate-300">Buyuk Alloma Portreti</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Biography Text -->
+                    <div class="md:col-span-7 space-y-4">
+                        <h2 class="font-serif text-3xl font-bold text-white">Buyuk Siymo va Yoshlik Yillari</h2>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            To'liq ismi: <strong class="text-gold-300">Abu Ali al-Husayn ibn Abdulloh ibn Sino</strong>. Yevropada **Avicenna** nomi bilan tanilgan. 980-yilda Buxoro yaqinidagi Afshona qishlog'ida dunyoga kelgan.
+                        </p>
+                        <div class="space-y-2">
+                            <div class="glass-card p-3 rounded-xl border-l-4 border-l-gold-500 flex items-start gap-3">
+                                <i data-lucide="brain" class="w-5 h-5 text-gold-400 shrink-0 mt-0.5"></i>
+                                <div>
+                                    <h4 class="text-xs font-bold text-white uppercase">Qomusiy Iqtidor</h4>
+                                    <p class="text-xs text-slate-300">10 yoshida Quronni to'liq yod olgan, 16 yoshida tibbiyot sirlarini egallagan, 18 yoshida o'z davrining barcha fanlarini mukammal bilgan.</p>
+                                </div>
+                            </div>
+                            <div class="glass-card p-3 rounded-xl border-l-4 border-l-amber-500 flex items-start gap-3">
+                                <i data-lucide="book-marked" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+                                <div>
+                                    <h4 class="text-xs font-bold text-white uppercase">Somoniylar Kutubxonasi</h4>
+                                    <p class="text-xs text-slate-300">Buxoro amiri Nuh ibn Mansurni davolagani evaziga noyob Somoniylar kutubxonasidan foydalanish huquqiga ega bo'lgan.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3">
+                    Eslatma: Ibn Sino o'zining autobiografiyasida 18 yoshida hamma fanlarni o'rganib bo'lganini va keyinchalik hech qanday yangi bilim olmaganini ta'kidlaydi.
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Lucide ikonkalarni faollashtirish
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+            <!-- SLIDE 3: Interactive Life Timeline -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="3">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="clock" class="w-3.5 h-3.5"></i> Hayot Yo'li Chronologiyasi
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">03</span>
+                </div>
+                <div class="my-auto">
+                    <h2 class="font-serif text-2xl font-bold text-white mb-6 text-center">Ibn Sino Hayotidagi Muhim Bosqichlar</h2>
+                    <!-- Timeline Interactive Selector -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6" id="timelineButtons">
+                        <button onclick="showTimelineEvent(0)" class="timeline-btn active p-3 rounded-xl glass-card text-left border-gold-500/60 bg-gold-500/20">
+                            <span class="text-xs font-mono text-gold-400 block">980 - 998</span>
+                            <span class="font-bold text-xs text-white">Buxoro Davri</span>
+                        </button>
+                        <button onclick="showTimelineEvent(1)" class="timeline-btn p-3 rounded-xl glass-card text-left">
+                            <span class="text-xs font-mono text-gold-400 block">1002 - 1015</span>
+                            <span class="font-bold text-xs text-white">Xorazm & Ma'mun Akademiyasi</span>
+                        </button>
+                        <button onclick="showTimelineEvent(2)" class="timeline-btn p-3 rounded-xl glass-card text-left">
+                            <span class="text-xs font-mono text-gold-400 block">1015 - 1024</span>
+                            <span class="font-bold text-xs text-white">Hamadon Davri</span>
+                        </button>
+                        <button onclick="showTimelineEvent(3)" class="timeline-btn p-3 rounded-xl glass-card text-left">
+                            <span class="text-xs font-mono text-gold-400 block">1024 - 1037</span>
+                            <span class="font-bold text-xs text-white">Isfahon va So'nggi Yillar</span>
+                        </button>
+                    </div>
+                    <!-- Timeline Content Display Area -->
+                    <div id="timelineDisplay" class="glass-card p-6 rounded-2xl border border-gold-500/30 min-h-[160px] flex items-center">
+                        <div>
+                            <h3 id="timelineTitle" class="text-lg font-bold text-gold-300 mb-2">980-998: Buxoro - Ilm-fan Pillapoyasi</h3>
+                            <p id="timelineDesc" class="text-sm text-slate-300 leading-relaxed">
+                                Afshonada tug'ilib, Buxoroda ta'lim oldi. Qisqa fursatda mantiq, fiqh, hisob va tibbiyot fanlarini mukammal egalladi. Nuh ibn Mansurni davolagach, amirning boy kutubxonasida mutolaa qildi va ilk asarlarini yozishni boshladi.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3">
+                    Vaqt chizig'idagi har bir davr ustiga bosib batafsil ma'lumot olishingiz mumkin.
+                </div>
+            </div>
+
+            <!-- SLIDE 4: Interactive Human Anatomy Viewer (Canon of Medicine) -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="4">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="activity" class="w-3.5 h-3.5"></i> Tib Qonunlari & Anatomiya
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">04</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-5 text-center">
+                        <h2 class="font-serif text-xl font-bold text-white mb-2">Interaktiv Anatomik Tadqiqot</h2>
+                        <p class="text-xs text-slate-400 mb-4">A'zoni tanlang va Ibn Sinoning tabobatdagi kashfiyotini o'rganing:</p>
+                        <!-- Anatomy Buttons -->
+                        <div class="flex flex-wrap gap-2 justify-center" id="anatomyBtns">
+                            <button onclick="showAnatomy('heart')" class="anatomy-btn px-3 py-2 rounded-lg text-xs font-semibold glass-card border-gold-500 text-gold-300">🫀 Yurak & Qon</button>
+                            <button onclick="showAnatomy('brain')" class="anatomy-btn px-3 py-2 rounded-lg text-xs font-semibold glass-card text-slate-300">🧠 Miya & Asab</button>
+                            <button onclick="showAnatomy('eye')" class="anatomy-btn px-3 py-2 rounded-lg text-xs font-semibold glass-card text-slate-300">👁️ Ko'z Anotomiyasi</button>
+                            <button onclick="showAnatomy('stomach')" class="anatomy-btn px-3 py-2 rounded-lg text-xs font-semibold glass-card text-slate-300">🧪 Oshqozon-Ichak</button>
+                        </div>
+                    </div>
+                    <div class="md:col-span-7">
+                        <div id="anatomyCard" class="glass-card p-6 rounded-2xl border-l-4 border-l-gold-500 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <div id="anatomyIcon" class="p-3 rounded-xl bg-gold-500/20 text-gold-400 text-2xl">🫀</div>
+                                <div>
+                                    <h3 id="anatomyTitle" class="font-serif font-bold text-lg text-white">Yurak va Qon Aylanish Nazariyasi</h3>
+                                    <span id="anatomyLatin" class="text-xs font-mono text-gold-400">Cardia & Circulation</span>
+                                </div>
+                            </div>
+                            <p id="anatomyDesc" class="text-xs md:text-sm text-slate-300 leading-relaxed">
+                                Ibn Sino "Al-Qonun fi at-Tibb" asarida yurakni inson organizmining asosiy harakatlantiruvchi a'zosi va issiqlik manbai deb ta'riflagan. U tomir urishi (puls) turlarini va uning diagnostik ahamiyatini birinchi bo'lib batafsil tasniflagan.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3">
+                    "Tib Qonunlari" Yevropa universitetlarida 500 yildan ortiq vaqt davomida asosiy darslik bo'lib xizmat qilgan.
+                </div>
+            </div>
+
+            <!-- SLIDE 5: Kitob al-Shifo -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="5">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="book" class="w-3.5 h-3.5"></i> Falsafa va Mantiq
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">05</span>
+                </div>
+                <div class="my-auto space-y-4">
+                    <div class="text-center max-w-2xl mx-auto">
+                        <h2 class="font-serif text-3xl font-bold text-white mb-2">Kitob ash-Shifo (Shifo Kitobi)</h2>
+                        <p class="text-xs md:text-sm text-slate-300">
+                            Insoniyat tarixidagi eng ulkan va har tomonlama mukammal ensiklopedik asarlardan biri. 22 jilddan iborat ushbu shoh asar ruh va aql uchun shifo manbaidir.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                        <div class="glass-card p-4 rounded-xl border border-slate-700/50">
+                            <i data-lucide="compass" class="w-6 h-6 text-gold-400 mb-2"></i>
+                            <h3 class="font-bold text-sm text-white mb-1">1. Mantiq</h3>
+                            <p class="text-xs text-slate-300">Arestotel mantiqini rivojlantirib, mulohaza va xulosa chiqarish qoidalarini aniqlashtirdi.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-slate-700/50">
+                            <i data-lucide="atom" class="w-6 h-6 text-gold-400 mb-2"></i>
+                            <h3 class="font-bold text-sm text-white mb-1">2. Tabiiy Fanlar</h3>
+                            <p class="text-xs text-slate-300">Fizika, meteorologiya, geologiya va mineralogiya fanlarining tamal toshlarini qo'ydi.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-slate-700/50">
+                            <i data-lucide="calculator" class="w-6 h-6 text-gold-400 mb-2"></i>
+                            <h3 class="font-bold text-sm text-white mb-1">3. Matematika</h3>
+                            <p class="text-xs text-slate-300">Geometriya, arifmetika, astronomiya va musiqa nazariyasini bir joyga jamladi.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-slate-700/50">
+                            <i data-lucide="sparkles" class="w-6 h-6 text-gold-400 mb-2"></i>
+                            <h3 class="font-bold text-sm text-white mb-1">4. Metafizika</h3>
+                            <p class="text-xs text-slate-300">Borliq, sababiyat va ilohiyot masalalarini chuqur falsafiy tahlil qildi.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3">
+                    Asar nomi "Shifo" bo'lishiga qaramay, u tibbiyotga emas, balki ruh va aql shifosi bo'lmish falsafaga bag'ishlangan.
+                </div>
+            </div>
+
+            <!-- SLIDE 6: Astronomy & Observatory Works -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="6">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="sun" class="w-3.5 h-3.5"></i> Astronomiya va Olam To'g'risida
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">06</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <h2 class="font-serif text-3xl font-bold text-white">Falakiyot va Observatoriya Asboblari</h2>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Ibn Sino faqat yer bag'ridagi ilmlar bilan cheklanmay, samoviy jismlar va astronomiya bilan ham chuqur shug'ullangan. U Hamadon va Isfahonda rasadxonalar qurilishiga boshchilik qilgan.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-gold-400"></i> Venera sayyorasining Quyosh diskidan o'tishini birinchi bo'lib kuzatgan.</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-gold-400"></i> Yulduzlar burchak masofasini o'lchovchi aniqroq asbob o'ylab topgan.</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-gold-400"></i> Kalendarni aniqlashtirish va fasllar almashinuvini hisoblash usullarini yaratgan.</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-gold-500/30 flex flex-col items-center text-center">
+                        <div class="w-20 h-20 rounded-full bg-gold-500/10 flex items-center justify-center mb-4 text-gold-400 animate-spin-slow">
+                            <i data-lucide="orbit" class="w-10 h-10"></i>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-gold-300 mb-1">Koinot Nizomi</h3>
+                        <p class="text-xs text-slate-300">
+                            "Yulduzlar va samoviy jismlar abadiy harakatda bo'lib, ular muayyan qonuniyat va tartibga bo'ysunadi."
+                        </p>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3">
+                    Bugungi kunda Oydagi kraterlardan biriga va 2755-sonli kichik sayyoraga (Asteroid) Ibn Sino nomi berilgan.
+                </div>
+            </div>
+
+            <!-- SLIDE 7: Chemistry and Pharmacology -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="7">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="flask-conical" class="w-3.5 h-3.5"></i> Kimyo va Farmakologiya
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">07</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card p-5 rounded-2xl border-t-4 border-t-emerald-500 space-y-2">
+                        <i data-lucide="droplet" class="w-8 h-8 text-emerald-400 mb-2"></i>
+                        <h3 class="font-bold text-white text-base">Efir Moylarini Distillash</h3>
+                        <p class="text-xs text-slate-300">
+                            O'simliklardan bug' yordamida efir moylarini (gulob) ajratib olish usulini kashf qildi. Bu hozirgi parfyumeriya va farmatsevtika tamali hisoblanadi.
+                        </p>
+                    </div>
+                    <div class="glass-card p-5 rounded-2xl border-t-4 border-t-gold-500 space-y-2">
+                        <i data-lucide="pill" class="w-8 h-8 text-gold-400 mb-2"></i>
+                        <h3 class="font-bold text-white text-base">800+ Dori-Darmonlar</h3>
+                        <p class="text-xs text-slate-300">
+                            "Tib Qonunlari" ning 2-jildida 800 dan ortiq o'simlik, hayvonot va mineral maysalardan tayyorlanadigan dori vositalarini batafsil tasvirlab berdi.
+                        </p>
+                    </div>
+                    <div class="glass-card p-5 rounded-2xl border-t-4 border-t-amber-500 space-y-2">
+                        <i data-lucide="shield-alert" class="w-8 h-8 text-amber-400 mb-2"></i>
+                        <h3 class="font-bold text-white text-base">Soxta Kimyoga Qarshi</h3>
+                        <p class="text-xs text-slate-300">
+                            Arzon metallarni oltin yoki kumushga aylantirishga urinuvchi alximiklarning xurofotlarini ilmiy rad etdi va haqiqiy amaliy kimyoga asos soldi.
+                        </p>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3">
+                    Ibn Sino dorilarning dozasini (miqdorini) va nojo'ya ta'sirlarini sinovdan o'tkazish qoidalarini ham birinchi bo'lib belgilagan.
+                </div>
+            </div>
+
+            <!-- SLIDE 8: Psychology & Mind-Body Health -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="8">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="heart-pulse" class="w-3.5 h-3.5"></i> Psixosomatika va Ruhiyat
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">08</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-7 space-y-4">
+                        <h2 class="font-serif text-2xl md:text-3xl font-bold text-white">Ruh va Tana Uyg'unligi</h2>
+                        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
+                            Ibn Sino ruhiyat va tana salomatligi bir-biri bilan chambarchas bog'liqligini birinchilardan bo mezon qilib oldi. U ruhiy kechinmalar, stress va hissiyotlarning jismoniy kasalliklarga sabab bo'lishini isbotladi.
+                        </p>
+                        <div class="p-4 rounded-xl glass-card border-l-4 border-l-gold-400">
+                            <h4 class="text-xs font-bold text-gold-300 uppercase mb-1">Mashhur Tajriba: Ikki Qo'zi Hikoyasi</h4>
+                            <p class="text-xs text-slate-300">
+                                Ibn Sino ikki bir xil qo'zini alohida qafasga joylashtirdi. Birining yoniga bo'ri bog'landi. Bo'rini ko'rib doimiy qo'rquvda yashagan qo'zi tez orada kasallanib halok bo'ldi. Bu ruhiy tushkunlik va stressning jismoniy ta'sirini ko'rsatuvchi eng mashhur tajribadir.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="md:col-span-5">
+                        <div class="glass-card p-6 rounded-2xl border border-gold-500/30 text-center space-y-3">
+                            <i data-lucide="smile" class="w-12 h-12 text-gold-400 mx-auto"></i>
+                            <h3 class="font-bold text-white text-base">Musiqaterapiya</h3>
+                            <p class="text-xs text-slate-300">
+                                Ibn Sino ruhiy xastaliklarni davolashda yoqimli musiqiy kuylar va tabiat tovushlaridan unumli foydalangan.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3">
+                    Zamonaviy psixosomatik tibbiyotning shakllanishida Ibn Sinoning qarashlari muhim o'rin tutadi.
+                </div>
+            </div>
+
+            <!-- SLIDE 9: Interactive Works Catalog -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="9">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="library" class="w-3.5 h-3.5"></i> Ilmiy Asarlar Katalogi
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">09</span>
+                </div>
+                <div class="my-auto space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <h2 class="font-serif text-2xl font-bold text-white">450 dan Ortiq Asarlar Merosi</h2>
+                        <!-- Filter buttons -->
+                        <div class="flex gap-2 text-xs">
+                            <button onclick="filterCatalog('all')" class="catalog-filter-btn px-3 py-1 rounded-lg glass-card text-gold-300 border-gold-500">Barchasi</button>
+                            <button onclick="filterCatalog('tibbiyot')" class="catalog-filter-btn px-3 py-1 rounded-lg glass-card text-slate-300">Tibbiyot</button>
+                            <button onclick="filterCatalog('falsafa')" class="catalog-filter-btn px-3 py-1 rounded-lg glass-card text-slate-300">Falsafa</button>
+                        </div>
+                    </div>
+                    <!-- Catalog Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="catalogGrid">
+                        <div class="catalog-item glass-card p-4 rounded-xl border border-gold-500/30" data-cat="tibbiyot">
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 mb-2 inline-block">Tibbiyot</span>
+                            <h3 class="font-bold text-white text-sm mb-1">Al-Qonun fi at-Tibb</h3>
+                            <p class="text-xs text-slate-300">5 jildlik tibbiyot qomusi, jahon tabobatining shoh asari.</p>
+                        </div>
+                        <div class="catalog-item glass-card p-4 rounded-xl border border-gold-500/30" data-cat="falsafa">
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 mb-2 inline-block">Falsafa & Mantiq</span>
+                            <h3 class="font-bold text-white text-sm mb-1">Kitob ash-Shifo</h3>
+                            <p class="text-xs text-slate-300">Falsafa, mantiq, fizika va matematika ensiklopediyasi.</p>
+                        </div>
+                        <div class="catalog-item glass-card p-4 rounded-xl border border-gold-500/30" data-cat="falsafa">
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 mb-2 inline-block">Falsafa & Tasavvuf</span>
+                            <h3 class="font-bold text-white text-sm mb-1">Kitob al-Ishorot</h3>
+                            <p class="text-xs text-slate-300">Ibn Sinoning so'nggi va eng chuqur falsafiy risolalaridan biri.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3">
+                    Bizgacha Ibn Sinoning 240 ga yaqin asari yetib kelgan.
+                </div>
+            </div>
+
+            <!-- SLIDE 10: Poetry & Literary Legacy -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="10">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="feather" class="w-3.5 h-3.5"></i> She'riyat va Adabiyot
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">10</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <h2 class="font-serif text-3xl font-bold text-white">Shoir va Nazm Ustasi</h2>
+                        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
+                            Ibn Sino nafaqat nasriy ilmiy asarlar, balki tibbiyot hamda mantiq fanlarini o'rganishni osonlashtirish uchun she'riy shakldagi **Urjuza** (doston)lar va hikmatli ruboiylar ham yozgan.
+                        </p>
+                        <div class="p-4 rounded-xl bg-gold-500/10 border border-gold-500/30 font-serif italic text-gold-200 text-sm space-y-2">
+                            <p>"Yer bag'ridan to Zuhal avjiga qadar,</p>
+                            <p>Koinot mushkulin etdim hal kashf etib bir-bir.</p>
+                            <p>Yechildi har tugun, qolmadi bir sir,</p>
+                            <p>Faqat ajallik tuguni yechilmadi hayhot..."</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-gold-500/30 space-y-3">
+                        <h3 class="font-serif text-lg font-bold text-gold-300">Urjuza fi at-Tibb</h3>
+                        <p class="text-xs text-slate-300">
+                            1360 baytdan iborat ushbu she'riy asarda Ibn Sino butun tibbiyot fanining qoidalari, xastaliklar alomatlari va davolash yo'llarini nazm ipiga tizgan.
+                        </p>
+                        <div class="text-xs font-mono text-slate-400 pt-2 border-t border-slate-700">
+                            ★ Talabalar uchun yod olish oson bo'lishi mo'ljallangan.
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3">
+                    Ibn Sino ruboiylari Umar Xayyom ruboiylarining shakllanishiga kuchli ta'sir ko'rsatgan.
+                </div>
+            </div>
+
+            <!-- SLIDE 11: European Renaissance Influence -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="11">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="globe shadow" class="w-3.5 h-3.5"></i> Yevropa va Uyg'onish Davri
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">11</span>
+                </div>
+                <div class="my-auto space-y-4">
+                    <div class="text-center max-w-2xl mx-auto">
+                        <h2 class="font-serif text-3xl font-bold text-white mb-2">G'arb Tamadduniga Ta'siri</h2>
+                        <p class="text-xs md:text-sm text-slate-300">
+                            XII asrdan boshlab Ibn Sinoning asarlari lotin tiliga tarjima qilindi va Yevropada "Tibbiyot Shahzodasi" (Princeps Medicorum) deb e'tirof etildi.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                        <div class="glass-card p-5 rounded-xl border border-gold-500/30">
+                            <i data-lucide="graduation-cap" class="w-7 h-7 text-gold-400 mb-2"></i>
+                            <h3 class="font-bold text-white text-sm mb-1">Unversitet Darsliklari</h3>
+                            <p class="text-xs text-slate-300">Monpele, Paduya, Bolonya va Parij universitetlarida 17-asrgacha asosiy darslik bo'lgan.</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl border border-gold-500/30">
+                            <i data-lucide="file-check" class="w-7 h-7 text-gold-400 mb-2"></i>
+                            <h3 class="font-bold text-white text-sm mb-1">Lotincha Tarjimalar</h3>
+                            <p class="text-xs text-slate-300">Gundissalinus va Kremonalik Jerard tomonidan lotinchaga o'girilgan va o'nlarcha marta bosilgan.</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-xl border border-gold-500/30">
+                            <i data-lucide="landmark" class="w-7 h-7 text-gold-400 mb-2"></i>
+                            <h3 class="font-bold text-white text-sm mb-1">Haykallar va Xotira</h3>
+                            <p class="text-xs text-slate-300">Parij universitetida va dunyoning ko'plab poytaxtlarida Ibn Sino haykallari qad rostlagan.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3">
+                    Yevropa Uyg'onish (Renessans) davri mantiq va tabobat taraqqiyoti bevosita Avitsenna asarlari bilan bog'liq.
+                </div>
+            </div>
+
+            <!-- SLIDE 12: Modern Science & Honors -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="12">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="award" class="w-3.5 h-3.5"></i> Zamonaviy E'tirof
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">12</span>
+                </div>
+                <div class="my-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div class="space-y-3">
+                        <h2 class="font-serif text-2xl font-bold text-white">Dunyo E'tirofi va Xotira</h2>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            UNESCO qarori bilan 1980-yilda Ibn Sinoning 1000 yillik yubileyi butun dunyo miqyosida keng nishonlandi. Uning ilmiy merosi bugungi kunda ham dolzarbligini yo'qotmagan.
+                        </p>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-3 rounded-lg glass-card flex items-center gap-3">
+                                <i data-lucide="medal" class="w-5 h-5 text-gold-400 shrink-0"></i>
+                                <div><strong>UNESCO Avicenna Medali:</strong> Ilm-fan va etika sohasidagi eng oliy mukofotlardan biri.</div>
+                            </div>
+                            <div class="p-3 rounded-lg glass-card flex items-center gap-3">
+                                <i data-lucide="building-2" class="w-5 h-5 text-gold-400 shrink-0"></i>
+                                <div><strong>Toshkent Tibbiyot Akademiyasi:</strong> O'zbekiston va dunyodagi ko'plab tibbiyot muassasalari alloma nomi bilan ataladi.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-gold-500/30 text-center space-y-3">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400">
+                            <i data-lucide="sparkle" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-white">Abadiy Yoritgich</h3>
+                        <p class="text-xs text-slate-300">
+                            "Men dunyoni anglash uchun keldim va uni yaxshiroq qilib tark etishga harakat qildim."
+                        </p>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3">
+                    2005-yildan buyon BMT shafeligida har yili "Avitsenna Mukofoti" topshirib kelinadi.
+                </div>
+            </div>
+
+            <!-- SLIDE 13: Expanded Quotes Generator & Philosophy -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="13">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="quote" class="w-3.5 h-3.5"></i> Sehrli Hikmatlar Generator
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">13</span>
+                </div>
+                <div class="my-auto max-w-3xl mx-auto text-center space-y-6">
+                    <h2 class="font-serif text-3xl font-bold text-white">Ibn Sino Hikmatlari va O'gitlari</h2>
+                    <div class="glass-card p-8 rounded-2xl border border-gold-500/40 relative">
+                        <i data-lucide="quote" class="w-10 h-10 text-gold-500/20 absolute top-4 left-4"></i>
+                        <p id="quoteText" class="font-serif text-lg md:text-xl text-gold-200 italic leading-relaxed min-h-[90px] flex items-center justify-center px-4">
+                            "Harakat salomatlikning kalitidir. Dori-darmon so'nggi chora bo'lishi kerak."
+                        </p>
+                        <i data-lucide="quote" class="w-10 h-10 text-gold-500/20 absolute bottom-4 right-4 rotate-180"></i>
+                    </div>
+                    <button onclick="generateRandomQuote()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-gold-600 to-gold-400 hover:from-gold-500 hover:to-gold-300 text-midnight-900 font-bold shadow-lg shadow-gold-500/20 flex items-center gap-2 mx-auto transition transform hover:scale-105">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i> Boshqa Hikmatni Ko'rish
+                    </button>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3 text-center">
+                    Tugmani bosib Ibn Sinoning boy falsafiy hamda tibbiy hikmatlarini tasodifiy hosil qiling.
+                </div>
+            </div>
+
+            <!-- SLIDE 14: Medical Legacy Summarized -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="14">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="check-square" class="w-3.5 h-3.5"></i> Xulosa va Muvaqqat
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">14</span>
+                </div>
+                <div class="my-auto space-y-4">
+                    <h2 class="font-serif text-2xl font-bold text-white text-center">Tibbiyot va Ilm-fan Taraqqiyotidagi O'rni</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="glass-card p-4 rounded-xl border-l-4 border-l-gold-500 space-y-1">
+                            <h3 class="font-bold text-white text-sm">1. Mikrob va Karantin</h3>
+                            <p class="text-xs text-slate-300">Kasalliklarning ko'zga ko'rinmas mayda jonzotlar (mikroblar) va suv hamda havoda tarqalishini aytgan.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border-l-4 border-l-gold-500 space-y-1">
+                            <h3 class="font-bold text-white text-sm">2. Jarrohlik va Anesteziya</h3>
+                            <p class="text-xs text-slate-300">Jarrohlikda og'riqsizlantirish uchun afyun va boshqa o'simlik tayyorgarliklaridan foydalanishni taklif qilgan.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border-l-4 border-l-gold-500 space-y-1">
+                            <h3 class="font-bold text-white text-sm">3. Puls va Diagnostika</h3>
+                            <p class="text-xs text-slate-300">Tomir urishiga qarab inson a'zolaridagi barcha o'zgarishlarni aniqlash metodikasini mukammalashtirgan.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border-l-4 border-l-gold-500 space-y-1">
+                            <h3 class="font-bold text-white text-sm">4. Sog'lom Turmush Tarzi</h3>
+                            <p class="text-xs text-slate-300">To'g'ri ovqatlanish, jismoniy tarbiya va uyquning inson umrini uzaytirishdagi rolini asoslagan.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3">
+                    Ibn Sino merosi insoniyatning umumiy bebaho ma'naviy boyligidir.
+                </div>
+            </div>
+
+            <!-- SLIDE 15: Enhanced Interactive Quiz Game with 20 Random Questions -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="15">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Bilimlar Sinovi Viktorina
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">15</span>
+                </div>
+                <div class="my-auto max-w-2xl mx-auto w-full space-y-4">
+                    <div id="quizContainer" class="glass-card p-6 rounded-2xl border border-gold-500/30 space-y-4">
+                        <div class="flex justify-between items-center text-xs text-gold-400 font-mono">
+                            <span id="quizNum">Savol 1 / 5</span>
+                            <span id="quizScore">Ball: 0</span>
+                        </div>
+                        <h3 id="quizQuestion" class="font-serif text-lg font-bold text-white">
+                            Savol yuklanmoqda...
+                        </h3>
+                        <div id="quizOptions" class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                            <!-- Dynamic Options -->
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xs text-slate-400 border-t border-slate-800 pt-3 text-center">
+                    Taqdimot davomida olgan bilimlaringizni tekshirib ko'ring! (20 ta savoldan tasodifiy 5 tasi tanlanadi)
+                </div>
+            </div>
+
+            <!-- SLIDE 16: Authors & Master Presentation Credits -->
+            <div class="slide-container absolute inset-0 glass-panel rounded-3xl p-6 md:p-10 flex flex-col justify-between overflow-y-auto border border-gold-500/30 shadow-2xl transition-all duration-500 opacity-0 pointer-events-none scale-95" data-slide="16">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Yakun va Taqdimot Mualliflari
+                    </span>
+                    <span class="font-serif text-2xl text-gold-500/40">16</span>
+                </div>
+                <div class="my-auto space-y-6 text-center">
+                    <div class="space-y-2">
+                        <span class="px-4 py-1.5 rounded-full bg-gold-500/20 text-gold-300 border border-gold-500/40 text-xs font-semibold uppercase tracking-widest inline-block animate-bounce">
+                            E'tiboringiz uchun tashakkur!
+                        </span>
+                        <h2 class="font-serif text-3xl md:text-4xl font-extrabold text-white">Loyiha Mualliflari</h2>
+                        <p class="text-xs text-slate-300 max-w-md mx-auto">
+                            Ushbu interaktiv va innovatsion taqdimot quyidagi mualliflar tomonidan mahorat bilan tayyorlandi:
+                        </p>
+                    </div>
+
+                    <!-- Authors Showcase Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto pt-2">
+                        <!-- Author 1: Jaloliddinov Jamoliddin -->
+                        <div class="glass-card p-6 rounded-2xl border border-gold-500/40 hover:border-gold-400 relative overflow-hidden group">
+                            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-gold-500/10 rounded-full blur-xl group-hover:bg-gold-500/20 transition"></div>
+                            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-gold-600 to-gold-400 p-0.5 mb-3 shadow-lg shadow-gold-500/30">
+                                <div class="w-full h-full rounded-full bg-midnight-900 flex items-center justify-center font-bold font-serif text-xl text-gold-300">
+                                    JJ
+                                </div>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-white mb-1">Jaloliddinov Jamoliddin</h3>
+                            <p class="text-xs text-gold-400 font-medium mb-3">Master Presenter & Bosh Dasturchi</p>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/20 text-gold-300 text-[11px] font-semibold border border-gold-500/30">
+                                <i data-lucide="award" class="w-3.5 h-3.5 text-gold-400"></i> Bosh Muallif
+                            </span>
+                        </div>
+
+                        <!-- Author 2: Odilov Azizbek -->
+                        <div class="glass-card p-6 rounded-2xl border border-gold-500/40 hover:border-gold-400 relative overflow-hidden group">
+                            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-gold-500/10 rounded-full blur-xl group-hover:bg-gold-500/20 transition"></div>
+                            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-gold-600 to-gold-400 p-0.5 mb-3 shadow-lg shadow-gold-500/30">
+                                <div class="w-full h-full rounded-full bg-midnight-900 flex items-center justify-center font-bold font-serif text-xl text-gold-300">
+                                    OA
+                                </div>
+                            </div>
+                            <h3 class="font-serif text-xl font-bold text-white mb-1">Odilov Azizbek</h3>
+                            <p class="text-xs text-gold-400 font-medium mb-3">Tadqiqotchi & Kontent Dizayneri</p>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/20 text-gold-300 text-[11px] font-semibold border border-gold-500/30">
+                                <i data-lucide="award" class="w-3.5 h-3.5 text-gold-400"></i> Co-Muallif
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center text-xs text-slate-400 border-t border-slate-800 pt-3">
+                    <span>2026 - Barcha huquqlar saqlangan</span>
+                    <span class="text-gold-400">O'zbekiston, Toshkent</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer id="controlsNav" class="relative z-20 px-6 py-3 border-t border-gold-500/20 glass-panel flex flex-col sm:flex-row items-center justify-between gap-3">
+        <!-- Slide Progress Bar -->
+        <div class="flex items-center space-x-3 w-full sm:w-auto flex-1 max-w-xs">
+            <span id="currentSlideNum" class="text-xs font-mono font-bold text-gold-400">01</span>
+            <div class="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
+                <div id="progressBar" class="h-full bg-gradient-to-r from-gold-600 to-gold-400 w-[6.25%] transition-all duration-300"></div>
+            </div>
+            <span class="text-xs font-mono text-slate-400">16</span>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex items-center space-x-3">
+            <button onclick="prevSlide()" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-gold-500/20 border border-slate-700 hover:border-gold-500/50 text-white font-medium text-xs flex items-center gap-1.5 transition">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i> Oldingisi
+            </button>
+            <button id="autoPlayBtn" onclick="toggleAutoPlay()" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-gold-500/20 border border-slate-700 hover:border-gold-500/50 text-gold-400 text-xs flex items-center gap-1.5 transition">
+                <i data-lucide="play" id="playIcon" class="w-4 h-4"></i>
+                <span id="playText" class="hidden md:inline">Avto-ijro</span>
+            </button>
+            <button onclick="nextSlide()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-gold-600 to-gold-400 hover:from-gold-500 hover:to-gold-300 text-midnight-900 font-bold text-xs flex items-center gap-1.5 transition shadow-md shadow-gold-500/20">
+                Keyingisi <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Presenter Notes Drawer -->
+    <div id="notesDrawer" class="fixed top-0 right-0 h-full w-80 bg-midnight-900/95 border-l border-gold-500/30 backdrop-blur-xl z-50 transform translate-x-full transition-transform duration-300 p-6 overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="font-serif font-bold text-lg text-gold-300 flex items-center gap-2">
+                <i data-lucide="notebook" class="w-5 h-5"></i> Taqdimotchi Eslatmasi
+            </h3>
+            <button onclick="toggleNotesDrawer()" class="text-slate-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        <div id="notesContent" class="text-xs text-slate-300 space-y-3 leading-relaxed">
+            <!-- Dynamic notes content -->
+        </div>
+    </div>
+
+    <!-- Jump-to-Slide Visual Picker Modal -->
+    <div id="pickerModal" class="fixed inset-0 bg-midnight-900/90 backdrop-blur-xl z-50 flex items-center justify-center p-6 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="max-w-4xl w-full max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-serif font-bold text-xl text-gold-300">Slaydlar Galereyasi va Sakrash</h3>
+                <button onclick="togglePickerModal()" class="p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div id="pickerGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-4 overflow-y-auto p-2">
+                <!-- Dynamic slide cards inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="searchModal" class="fixed inset-0 bg-midnight-900/90 backdrop-blur-xl z-50 flex items-center justify-center p-6 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="max-w-xl w-full glass-panel rounded-2xl p-6 border border-gold-500/40 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                <h3 class="font-serif font-bold text-lg text-gold-300 flex items-center gap-2">
+                    <i data-lucide="search" class="w-5 h-5"></i> Taqdimotdan Izlash
+                </h3>
+                <button onclick="toggleSearchModal()" class="text-slate-400 hover:text-white">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <input type="text" id="searchInput" oninput="performSearch()" placeholder="Mavzu, asar yoki kalit so'zni kiriting..." class="w-full p-3 rounded-xl bg-midnight-900 border border-gold-500/30 text-white focus:outline-none focus:border-gold-400 text-sm">
+            <div id="searchResults" class="max-h-60 overflow-y-auto space-y-2 text-xs">
+                <p class="text-slate-400 text-center py-4">Izlash uchun biror kalit so'z kiriting...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 16;
+        let isAutoPlay = false;
+        let autoPlayInterval = null;
+        let audioCtx = null;
+        let isAudioPlaying = false;
+        let audioOscillators = [];
+
+        // Presenter notes map
+        const slideNotesMap = {
+            1: "KIRISH: Taqdimotni jonli kirish va muqaddima bilan boshlang. Ibn Sinoning dunyo sivilizatsiyasidagi o'rniga urg'u bering.",
+            2: "SIYMO: Mobil rom ichidagi tasvir orqali yoshlik yillari va Somoniylar kutubxonasida ta'lim olgani haqida gapiring.",
+            3: "TIMELINE: Tugmalarni bosib, Xorazm, Hamadon va Isfahondagi faoliyatini bosqichma-bosqich tushuntiring.",
+            4: "ANATOMIYA: Interaktiv anatomik tugmalarni bosib, puls va yurak-qon tomir bo'yicha kashfiyotlarini ko'rsating.",
+            5: "SHIFO: Kitob ash-Shifoning 22 jildlik falsafiy ensiklopediya ekanini ta'kidlang.",
+            6: "ASTRONOMIYA: Venera va yulduzlar harakatini kuzatgani haqida so'zlab bering.",
+            7: "KIMYO: Efir moylarini distillash kashfiyoti parfyumeriya asoschisi ekanligini bildiring.",
+            8: "RUHIYAT: Ikki qo'zi tajribasi orqali psixosomatika mohiyatini tushuntiring.",
+            9: "KATALOG: Filtr tugmalari orqali tibbiyot va falsafaga oid asarlarini guruhlab ko'rsating.",
+            10: "SHE'RIYAT: Urjuza dostoni va ruboiylaridan namuna o'qing.",
+            11: "YEVROPA: Paduya va Monpele universitetlarida 500 yil darslik bo'lganini urg'ulang.",
+            12: "UNESCO: Yubiley va Avitsenna mukofoti haqida gapiring.",
+            13: "HIKMATLAR: Tasodifiy hikmatlar generatoridan foydalanib, yangi hikmatlarni ko'rsating.",
+            14: "XULOSA: Ibn Sinoning asosiy 4 ta kashfiyotini umumlashtiring.",
+            15: "VIKTORINA: 20 ta savol ichidan tasodifiy beriladigan o'yinda tinglovchilar bilimini tekshiring.",
+            16: "MUALLIFLAR: Taqdimot mualliflari Jaloliddinov Jamoliddin va Odilov Azizbekni e'tirof eting."
+        };
+
+        // Expanded Quotes Data (15 Hikmat)
+        const quotesList = [
+            "Harakat salomatlikning kalitidir. Dori-darmon so'nggi chora bo'lishi kerak.",
+            "Tibbiyot — salomatlikni saqlash va yo'qotilganda uni qaytarish haqidagi ilmdir.",
+            "Ruhiy tushkunlik va qo'rquv tanani kasalliklarga zaif qilib qo'yadi.",
+            "Vaqtida qilingan jismoniy tarbiya har qanday doridan afzaldir.",
+            "Ilm o'rganishda sabr va izchillik eng asosiy quroldir.",
+            "O'zining bilmasligini bilgan kishi haqiqiy bilimdandir.",
+            "Niyat to'g'ri bo'lsa, amallar ham xayrli yakun topadi.",
+            "G'azab va jaholat aqlni qorong'ulikka yetaklaydi.",
+            "To'g'ri ovqatlanish — salomatlikning birinchi poydevoridir.",
+            "Do'stlik va samimiyat ruhiy xotirjamlik garovidir.",
+            "Dunyo sirlarini anglash — qalb va aqlning birgalikdagi izlanishidir.",
+            "Inson o'z hayotini o'z mulohazasi va harakati bilan shakllantiradi.",
+            "Va'daga vafo qilish — oliyjanob insonning belgisidir.",
+            "Musiqa ruhiy jarohatlarga malham bo'luvchi ilohiy ne'matdir.",
+            "Tibbiyot tabibdan nafaqat bilim, balki chuqur mehr va sabr talab etadi."
+        ];
+
+        // 20 Questions Data Pool
+        const allQuizQuestions = [
+            {
+                q: "Ibn Sino necha yoshida Quronni to'liq yod olgan?",
+                options: ["10 yoshida", "14 yoshida", "18 yoshida", "20 yoshida"],
+                correct: "10 yoshida"
+            },
+            {
+                q: "Ibn Sinoning eng mashhur 5 jildlik tibbiyot shoh asari qaysi?",
+                options: ["Kitob ash-Shifo", "Al-Qonun fi at-Tibb", "Kitob al-Ishorot", "Danishnoma"],
+                correct: "Al-Qonun fi at-Tibb"
+            },
+            {
+                q: "Avicenna nomi bilan qaysi qit'ada mashhur bo'lgan?",
+                options: ["Osiyoda", "Yevropada", "Amerikada", "Afrikada"],
+                correct: "Yevropada"
+            },
+            {
+                q: "Ibn Sino qaysi qishloqda tavallud topgan?",
+                options: ["Afshona", "G'ijduvon", "Vobkent", "Romitan"],
+                correct: "Afshona"
+            },
+            {
+                q: "Ibn Sino qaysi davlat hukmdorining kutubxonasidan foydalangan?",
+                options: ["Somoniylar", "G'aznaviylar", "Qoraxoniylar", "Saljuqiylar"],
+                correct: "Somoniylar"
+            },
+            {
+                q: "22 jilddan iborat falsafiy-ensiklopedik asari qanday ataladi?",
+                options: ["Kitob ash-Shifo", "Al-Qonun", "Kitob un-Nafot", "Urjuza"],
+                correct: "Kitob ash-Shifo"
+            },
+            {
+                q: "Ibn Sino o'simliklardan nimani distillash usulini kashf etgan?",
+                options: ["Efir moylari (gulob)", "Spirt", "Sirkali eritma", "Yog' alximiya"],
+                correct: "Efir moylari (gulob)"
+            },
+            {
+                q: "Bo'ri va qo'zi tajribasi orqali qaysi soha asoslangan?",
+                options: ["Psixosomatika va stress", "Xirurgiya", "Anatomiya", "Farmatsevtika"],
+                correct: "Psixosomatika va stress"
+            },
+            {
+                q: "Ibn Sinoning tibbiyotga oid 1360 baytdan iborat she'riy asari qaysi?",
+                options: ["Urjuza fi at-Tibb", "Ruboiylar", "Doston", "Qasidat al-Ayniya"],
+                correct: "Urjuza fi at-Tibb"
+            },
+            {
+                q: "Ibn Sino qaysi sayyoraning Quyosh diskidan o'tishini birinchi kuzatgan?",
+                options: ["Venera", "Mars", "Yupiter", "Saturn"],
+                correct: "Venera"
+            },
+            {
+                q: "Ibn Sinoning tug'ilgan yili qaysi?",
+                options: ["980-yil", "1000-yil", "950-yil", "1020-yil"],
+                correct: "980-yil"
+            },
+            {
+                q: "Ibn Sino qaysi shaharda vafot etgan va dafn qilingan?",
+                options: ["Hamadon", "Isfahon", "Buxoro", "Urganch"],
+                correct: "Hamadon"
+            },
+            {
+                q: "Ibn Sino kasalliklar nimalar orqali tarqalishini birinchi bo'lib bashorat qilgan?",
+                options: ["Mikroblar (ko'zga ko'rinmas jonzotlar)", "Sehr-jodu", "Yulduzlar joylashuvi", "Iqlim almashinuvi"],
+                correct: "Mikroblar (ko'zga ko'rinmas jonzotlar)"
+            },
+            {
+                q: "Ibn Sino nechta dori va shifobaxsh vositani 'Al-Qonun'da tasvirlagan?",
+                options: ["800 dan ortiq", "100 ta", "300 ta", "5000 ta"],
+                correct: "800 dan ortiq"
+            },
+            {
+                q: "Oydagi krater va asteroidga qaysi allomaning nomi berilgan?",
+                options: ["Ibn Sino", "Beruniy", "Ulug'bek", "Al-Xorazmiy"],
+                correct: "Ibn Sino"
+            },
+            {
+                q: "UNESCO qaysi yilda Ibn Sinoning 1000 yillik yubileyini nishonladi?",
+                options: ["1980-yilda", "1990-yilda", "2000-yilda", "1970-yilda"],
+                correct: "1980-yilda"
+            },
+            {
+                q: "Ibn Sino Xorazmda qaysi ilmiy markazda faoliyat yuritgan?",
+                options: ["Ma'mun Akademiyasi", "Marv Rasadxonasi", "Nizomiya Madrasasi", "Ulug'bek Akademiyasi"],
+                correct: "Ma'mun Akademiyasi"
+            },
+            {
+                q: "Ibn Sino ruhiy kasalliklarni davolashda qaysi usuldan unumli foydalangan?",
+                options: ["Musiqaterapiya", "Gipnoz", "Operatsiya", "Zuluk qo'yish"],
+                correct: "Musiqaterapiya"
+            },
+            {
+                q: "Ibn Sinoning bizgacha taxminan nechta asari yetib kelgan?",
+                options: ["240 ga yaqin", "50 ta", "100 ta", "1000 ta"],
+                correct: "240 ga yaqin"
+            },
+            {
+                q: "G'arbda Ibn Sino qanday sharafli unvon bilan atalgan?",
+                options: ["Tibbiyot Shahzodasi", "Sharq Quyoshi", "Mantiq Otasi", "Falsafa Qiroli"],
+                correct: "Tibbiyot Shahzodasi"
+            }
+        ];
+
+        let activeQuizQuestions = [];
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+
+        window.onload = function() {
+            lucide.createIcons();
+            initParticles();
+            buildSlidePicker();
+            updateSlideView();
+            initQuizSession();
+        };
+
+        function updateSlideView() {
+            const slides = document.querySelectorAll('.slide-container');
+            slides.forEach((slide, idx) => {
+                const slideNum = idx + 1;
+                if (slideNum === currentSlide) {
+                    slide.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+                    slide.classList.add('opacity-100', 'scale-100', 'z-10');
+                } else {
+                    slide.classList.remove('opacity-100', 'scale-100', 'z-10');
+                    slide.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+                }
+            });
+
+            document.getElementById('currentSlideNum').innerText = currentSlide < 10 ? `0${currentSlide}` : currentSlide;
+            document.getElementById('progressBar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+
+            // Update Notes
+            document.getElementById('notesContent').innerHTML = `<p>${slideNotesMap[currentSlide] || "Eslatma mavjud emas."}</p>`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlideView();
+            } else {
+                currentSlide = 1;
+                updateSlideView();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlideView();
+            }
+        }
+
+        function goToSlide(num) {
+            currentSlide = num;
+            updateSlideView();
+            togglePickerModal(false);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                toggleSearchModal();
+            }
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {});
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function toggleAutoPlay() {
+            isAutoPlay = !isAutoPlay;
+            const icon = document.getElementById('playIcon');
+            const btn = document.getElementById('autoPlayBtn');
+            if (isAutoPlay) {
+                icon.setAttribute('data-lucide', 'pause');
+                btn.classList.add('bg-gold-500/30', 'text-gold-300');
+                autoPlayInterval = setInterval(nextSlide, 5000);
+            } else {
+                icon.setAttribute('data-lucide', 'play');
+                btn.classList.remove('bg-gold-500/30', 'text-gold-300');
+                clearInterval(autoPlayInterval);
+            }
+            lucide.createIcons();
+        }
+
+        function toggleAmbientAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            const icon = document.getElementById('audioIcon');
+            const text = document.getElementById('audioText');
+
+            if (!isAudioPlaying) {
+                audioCtx.resume();
+                startOrientalChords();
+                isAudioPlaying = true;
+                icon.setAttribute('data-lucide', 'volume-2');
+                text.innerText = "Sharqona Ohan: Yoqilgan";
+            } else {
+                stopOrientalChords();
+                isAudioPlaying = false;
+                icon.setAttribute('data-lucide', 'volume-x');
+                text.innerText = "Sharqona Ohan: O'chiq";
+            }
+            lucide.createIcons();
+        }
+
+        function startOrientalChords() {
+            const freqs = [146.83, 220.00, 293.66, 329.63]; // D oriental chord scale
+            freqs.forEach((freq) => {
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                audioOscillators.push(osc);
+            });
+        }
+
+        function stopOrientalChords() {
+            audioOscillators.forEach(osc => osc.stop());
+            audioOscillators = [];
+        }
+
+        const timelineData = [
+            {
+                title: "980-998: Buxoro - Ilm-fan Pillapoyasi",
+                desc: "Afshonada tug'ilib, Buxoroda ta'lim oldi. Qisqa fursatda mantiq, fiqh, hisob va tibbiyot fanlarini mukammal egalladi. Nuh ibn Mansurni davolagach, amirning boy kutubxonasida mutolaa qildi."
+            },
+            {
+                title: "1002-1015: Xorazm & Ma'mun Akademiyasi",
+                desc: "Urganchda Beruniy, Ibn Maskaveyh kabi olimlar bilan hamkorlikda ilmiy izlanishlar olib bordi. Tabiiy fanlar va astronomiyaga oid eng muhim risolalarini tayyorladi."
+            },
+            {
+                title: "1015-1024: Hamadon Davri",
+                desc: "Hamadonda vazirlik maqomiga erishdi va shu bilan birga tunlari 'Al-Qonun fi at-Tibb' (Tib Qonunlari) va 'Kitob ash-Shifo'ning asosiy boblarini yozdi."
+            },
+            {
+                title: "1024-1037: Isfahon va So'nggi Yillar",
+                desc: "Isfahonda tinch va samarali ijod qildi. Astronomik observatoriya barpo etdi. 1037-yilda 57 yoshida vafot etdi va Hamadonda dafn qilindi."
+            }
+        ];
+
+        function showTimelineEvent(idx) {
+            const btns = document.querySelectorAll('.timeline-btn');
+            btns.forEach((btn, bIdx) => {
+                if (bIdx === idx) {
+                    btn.classList.add('border-gold-500/60', 'bg-gold-500/20');
+                } else {
+                    btn.classList.remove('border-gold-500/60', 'bg-gold-500/20');
+                }
+            });
+            document.getElementById('timelineTitle').innerText = timelineData[idx].title;
+            document.getElementById('timelineDesc').innerText = timelineData[idx].desc;
+        }
+
+        const anatomyInfo = {
+            heart: {
+                icon: '🫀',
+                title: 'Yurak va Qon Aylanish Nazariyasi',
+                latin: 'Cardia & Circulation',
+                desc: 'Ibn Sino yurakni inson organizmining asosiy harakatlantiruvchi a\'zosi va issiqlik manbai deb ta\'riflagan. U tomir urishi (puls) turlarini va uning diagnostik ahamiyatini birinchi bo\'lib batafsil tasniflagan.'
+            },
+            brain: {
+                icon: '🧠',
+                title: 'Miya va Asab Tizimi',
+                latin: 'Cerebrum & Nervous System',
+                desc: 'Ibn Sino asab tizimi, miya yarim sharlari va sezgi a\'zolari faoliyatini tahlil qildi. U ruhiy holatlarning asab tizimiga ta\'sirini birinchi bo\'lib asoslab berdi.'
+            },
+            eye: {
+                icon: '👁️',
+                title: 'Ko\'z Anatomiyasi va Optika',
+                latin: 'Oculus & Optica',
+                desc: 'Ko\'z muskul va asablarini batafsil tasvirlab, nur ko\'zdan chiqqan holda emas, balki buyumlardan qaytib ko\'zga tushishi orqali ko\'rish paydo bo\'lishini isbotladi.'
+            },
+            stomach: {
+                icon: '🧪',
+                title: 'Oshqozon va Hazm Qilish',
+                latin: 'Ventriculus & Digestion',
+                desc: 'Hazm qilish jarayonida oshqozon shirasi va parhezning muhim o\'rnini ko\'rsatdi. Oshqozon yarasini aniqlash va davolash yo\'llarini taklif etgan.'
+            }
+        };
+
+        function showAnatomy(key) {
+            const data = anatomyInfo[key];
+            document.getElementById('anatomyIcon').innerText = data.icon;
+            document.getElementById('anatomyTitle').innerText = data.title;
+            document.getElementById('anatomyLatin').innerText = data.latin;
+            document.getElementById('anatomyDesc').innerText = data.desc;
+        }
+
+        function filterCatalog(category) {
+            const items = document.querySelectorAll('.catalog-item');
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-cat') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function generateRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotesList.length);
+            document.getElementById('quoteText').innerText = `"${quotesList[randomIndex]}"`;
+        }
+
+        // Quiz Logic Implementation
+        function shuffleArray(arr) {
+            return arr.sort(() => Math.random() - 0.5);
+        }
+
+        function initQuizSession() {
+            // Select 5 random questions out of 20
+            let shuffled = shuffleArray([...allQuizQuestions]);
+            activeQuizQuestions = shuffled.slice(0, 5);
+            currentQuizIndex = 0;
+            quizScore = 0;
+            renderQuiz();
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            if (!container) return;
+
+            if (currentQuizIndex >= activeQuizQuestions.length) {
+                container.innerHTML = `
+                    <div class="text-center py-6 space-y-3">
+                        <i data-lucide="trophy" class="w-12 h-12 text-gold-400 mx-auto"></i>
+                        <h3 class="font-serif text-xl font-bold text-white">Tabriklaymiz! Viktorina Yakunlandi</h3>
+                        <p class="text-sm text-gold-300 font-mono">Sizning Natijangiz: ${quizScore} / 50 ball</p>
+                        <button onclick="resetQuiz()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold-600 to-gold-400 hover:from-gold-500 hover:to-gold-300 text-midnight-900 font-bold text-xs shadow-lg transition">
+                            Qaytadan Boshlash
+                        </button>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            const qData = activeQuizQuestions[currentQuizIndex];
+            
+            // Build dynamic layout
+            container.innerHTML = `
+                <div class="flex justify-between items-center text-xs text-gold-400 font-mono">
+                    <span>Savol ${currentQuizIndex + 1} / ${activeQuizQuestions.length}</span>
+                    <span>Ball: ${quizScore}</span>
+                </div>
+                <h3 class="font-serif text-lg font-bold text-white">
+                    ${qData.q}
+                </h3>
+                <div id="quizOptions" class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                </div>
+            `;
+
+            const optsContainer = document.getElementById('quizOptions');
+            let shuffledOptions = shuffleArray([...qData.options]);
+
+            shuffledOptions.forEach((optText, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'p-3 rounded-xl glass-card text-left text-xs font-medium text-slate-200 hover:border-gold-500 hover:text-gold-300 transition';
+                btn.innerText = `${i + 1}. ${optText}`;
+                btn.onclick = () => handleQuizAnswer(optText, qData.correct);
+                optsContainer.appendChild(btn);
+            });
+        }
+
+        function handleQuizAnswer(selectedText, correctText) {
+            if (selectedText === correctText) {
+                quizScore += 10;
+            }
+            currentQuizIndex++;
+            renderQuiz();
+        }
+
+        function resetQuiz() {
+            initQuizSession();
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('theme-sepia');
+        }
+
+        function toggleNotesDrawer() {
+            const drawer = document.getElementById('notesDrawer');
+            drawer.classList.toggle('translate-x-full');
+        }
+
+        function togglePickerModal(force) {
+            const modal = document.getElementById('pickerModal');
+            if (force === false) {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                modal.classList.toggle('opacity-0');
+                modal.classList.toggle('pointer-events-none');
+            }
+        }
+
+        function toggleSearchModal() {
+            const modal = document.getElementById('searchModal');
+            modal.classList.toggle('opacity-0');
+            modal.classList.toggle('pointer-events-none');
+        }
+
+        function buildSlidePicker() {
+            const grid = document.getElementById('pickerGrid');
+            grid.innerHTML = '';
+            for (let i = 1; i <= totalSlides; i++) {
+                const card = document.createElement('div');
+                card.className = 'glass-card p-4 rounded-xl border border-gold-500/20 hover:border-gold-400 cursor-pointer text-center';
+                card.onclick = () => goToSlide(i);
+                card.innerHTML = `
+                    <span class="font-serif text-lg font-bold text-gold-400 block mb-1">${i < 10 ? '0' + i : i}</span>
+                    <span class="text-[10px] text-slate-300 truncate block">Slayd ${i}</span>
+                `;
+                grid.appendChild(card);
+            }
+        }
+
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const results = document.getElementById('searchResults');
+            results.innerHTML = '';
+            if (!query) {
+                results.innerHTML = '<p class="text-slate-400 text-center py-4">Izlash uchun biror kalit so\'z kiriting...</p>';
+                return;
+            }
+
+            let matches = 0;
+            for (let i = 1; i <= totalSlides; i++) {
+                const slideEl = document.querySelector(`[data-slide="${i}"]`);
+                if (slideEl && slideEl.innerText.toLowerCase().includes(query)) {
+                    matches++;
+                    const resItem = document.createElement('div');
+                    resItem.className = 'p-3 rounded-lg bg-slate-800/60 border border-slate-700 hover:border-gold-500 cursor-pointer flex justify-between items-center';
+                    resItem.onclick = () => {
+                        goToSlide(i);
+                        toggleSearchModal();
+                    };
+                    resItem.innerHTML = `
+                        <span class="text-xs text-white font-medium">Slayd ${i}</span>
+                        <span class="text-[10px] text-gold-400">O'tish →</span>
+                    `;
+                    results.appendChild(resItem);
+                }
+            }
+
+            if (matches === 0) {
+                results.innerHTML = '<p class="text-slate-400 text-center py-4">Hech narsa topilmadi</p>';
+            }
+        }
+
+        function initParticles() {
+            const canvas = document.getElementById('particleCanvas');
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const particles = Array.from({ length: 45 }, () => ({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 2 + 0.5,
+                alpha: Math.random() * 0.5 + 0.2,
+                vx: (Math.random() - 0.5) * 0.3,
+                vy: (Math.random() - 0.5) * 0.3
+            }));
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0) p.x = width;
+                    if (p.x > width) p.x = 0;
+                    if (p.y < 0) p.y = height;
+                    if (p.y > height) p.y = 0;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(212, 175, 55, ${p.alpha})`;
+                    ctx.fill();
+                });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        }
+    </script>
+</body>
+</html>
